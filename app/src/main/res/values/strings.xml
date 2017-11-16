@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Vacunas</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="server_client_id">91191566859-8ol3tqedvfbgluugei7oq2b344b62mgq.apps.googleusercontent.com</string>
+    <string name="salir_app">Desea salir de la aplicacion?</string>
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="btn_rechazar">Rechazar</string>
+    <string name="search_hint">Buscar</string>
+</resources>

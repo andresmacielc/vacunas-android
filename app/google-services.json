@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "387955390447",
+    "project_id": "vacunas-f1e6c"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387955390447:android:d0467e88f4f301a4",
+        "android_client_info": {
+          "package_name": "com.vacunas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387955390447-0ducno6mda9p5osgjbgoeash3q9bf7qe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vacunas",
+            "certificate_hash": "27f5cf9e1dc981234db3dc228e010b59375c5728"
+          }
+        },
+        {
+          "client_id": "387955390447-520ubvq3vc29c4b01jt6t0jipe8i31kk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC21ZPI1G0fhWtnOmvW3ER8d8O_uFxSjJM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/cerrar"
+        android:title="Cerrar"
+        android:icon="@mipmap/ic_cerrar_sesion"
+        yourapp:showAsAction="ifRoom|collapseActionView"/>
+
+</menu>
