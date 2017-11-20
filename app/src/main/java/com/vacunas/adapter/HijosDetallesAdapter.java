@@ -6,12 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vacunas.R;
 import com.vacunas.activity.LoginActivity;
-import com.vacunas.rest.model.Hijo;
 import com.vacunas.rest.model.Vacuna;
 
 import java.text.DateFormat;
@@ -27,7 +27,7 @@ public class HijosDetallesAdapter  extends RecyclerView.Adapter<HijosDetallesAda
 
     private final List<Vacuna> mValues = new ArrayList<>();
     private final Activity mContext;
-    private String sexo;
+    private String aplicada;
     private String fecha;
 
     public HijosDetallesAdapter(Activity mContext) {
@@ -51,27 +51,18 @@ public class HijosDetallesAdapter  extends RecyclerView.Adapter<HijosDetallesAda
         holder.mItem = mValues.get(position);
         if (holder.mItem != null) {
 
-            holder.mNombreApellido.setText(holder.mItem.getNombreVacuna());
-            /*if(holder.mItem.getSexo().equals("M")){
-                sexo = "MASCULINO";
+            holder.mNombreVacuna.setText(holder.mItem.getNombreVacuna());
+            holder.mAplicada.setChecked(holder.mItem.getAplicada());
+            /*if(holder.mItem.getAplicada()){
+                aplicada = "SI";
             }else{
-                sexo = "FEMENINO";
-            }*/
-            holder.mSexo.setText(holder.mItem.getNombreVacuna());
-            /*holder.mEdad.setText(holder.mItem.getEdad().toString() + " años");
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-            fecha = df.format(holder.mItem.getFechaNacimiento());
-            holder.mFechaNacimiento.setText(fecha);*/
-        }
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(mContext, LoginActivity.class);
-                mContext.startActivity(i);
-
+                aplicada = "NO";
             }
-        };
-        holder.datosHijos.setOnClickListener(listener);
+            holder.mAplicada.setText(aplicada);*/
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            fecha = df.format(holder.mItem.getFechaAplicacion());
+            holder.mFechaAplicacion.setText(fecha);
+        }
     }
 
     @Override
@@ -93,25 +84,23 @@ public class HijosDetallesAdapter  extends RecyclerView.Adapter<HijosDetallesAda
 
         public final View mView;
         public final LinearLayout datosHijos;
-        public final TextView mNombreApellido;
-        public final TextView mSexo;
-        public final TextView mEdad;
-        public final TextView mFechaNacimiento;
+        public final TextView mNombreVacuna;
+        public final CheckBox mAplicada;
+        public final TextView mFechaAplicacion;
         public Vacuna mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             datosHijos = (LinearLayout) view.findViewById(R.id.datos_detalles_hijo);
-            mNombreApellido = (TextView) view.findViewById(R.id.txtNombre);
-            mSexo = (TextView) view.findViewById(R.id.txtAsiento);
-            mEdad = (TextView) view.findViewById(R.id.edad);
-            mFechaNacimiento = (TextView) view.findViewById(R.id.fecha_nacimiento);
+            mNombreVacuna = (TextView) view.findViewById(R.id.nombreVacuna);
+            mAplicada = (CheckBox) view.findViewById(R.id.aplicada);
+            mFechaAplicacion = (TextView) view.findViewById(R.id.fechaAplicación);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mNombreApellido.getText() + "'";
+            return super.toString() + " '" + mNombreVacuna.getText() + "'";
         }
     }
 }

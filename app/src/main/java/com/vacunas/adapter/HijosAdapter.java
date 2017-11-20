@@ -60,7 +60,7 @@ public class HijosAdapter  extends RecyclerView.Adapter<HijosAdapter.ViewHolder>
             }
             holder.mSexo.setText(sexo);
             holder.mEdad.setText(holder.mItem.getEdad().toString() + " años");
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             fecha = df.format(holder.mItem.getFechaNacimiento());
             holder.mFechaNacimiento.setText(fecha);
             //holder.idHijo =

@@ -1,6 +1,16 @@
 package com.vacunas.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +24,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.vacunas.R;
 import com.vacunas.adapter.HijosAdapter;
 import com.vacunas.rest.ApiBuilder;
@@ -42,6 +57,7 @@ public class HijosActivity  extends AppCompatActivity
     private List<Hijo> listaHijos;
     private List<Hijo> listaHijosFiltrados;
     private String idPadre;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +70,9 @@ public class HijosActivity  extends AppCompatActivity
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                confirmarCierre();
+                //cerrarSesion();
+                //finish();
             }
         });
 
@@ -172,4 +190,100 @@ public class HijosActivity  extends AppCompatActivity
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
         recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
     }
+
+    public static class Dialogo extends DialogFragment {
+
+        private Activity context;
+
+        public Dialogo() {
+        }
+
+        public void setContext(Activity context) {
+            this.context = context;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            DialogInterface.OnClickListener aceptarListener = new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    context.finish();
+                }
+            };
+            DialogInterface.OnClickListener rechazarListener = new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            };
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(getResources().getString(R.string.salir_app)).setTitle("Confirmar");
+            builder.setPositiveButton(getResources().getString(R.string.btn_aceptar), aceptarListener);
+            builder.setNegativeButton(getResources().getString(R.string.btn_rechazar), rechazarListener);
+            AlertDialog dialog = builder.create();
+            return dialog;
+        }
+
+    }
+
+
+    public static class DialogoSingOut extends DialogFragment {
+
+        private Activity context;
+
+        public DialogoSingOut() {
+        }
+
+        public void setContext(Activity context) {
+            this.context = context;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            DialogInterface.OnClickListener aceptarListener = new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    new HijosActivity().cerrarSesion(context);
+                    Intent i = new Intent(context, LoginActivity.class);
+                    startActivity(i);
+                    context.finish();
+                }
+            };
+            DialogInterface.OnClickListener rechazarListener = new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            };
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(getResources().getString(R.string.cerrar_sesion)).setTitle("Confirmar");
+            builder.setPositiveButton(getResources().getString(R.string.btn_aceptar), aceptarListener);
+            builder.setNegativeButton(getResources().getString(R.string.btn_rechazar), rechazarListener);
+            AlertDialog dialog = builder.create();
+            return dialog;
+        }
+
+    }
+    @Override
+    public void onBackPressed() {
+        Dialogo dialog = new Dialogo();
+        dialog.setContext(this);
+        dialog.show(getSupportFragmentManager(), "");
+    }
+
+    private void confirmarCierre() {
+        DialogoSingOut dialog = new DialogoSingOut();
+        dialog.setContext(this);
+        dialog.show(getSupportFragmentManager(), "");
+    }
+
+    private void cerrarSesion(Activity context) {
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(context, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
+    }
+
 }
