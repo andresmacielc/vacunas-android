@@ -1,9 +1,13 @@
 package com.vacunas.activity;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 
 import com.vacunas.R;
 
@@ -15,10 +19,7 @@ public class SplashActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 
-		//TextView textView = (TextView) findViewById(R.id.version);
-		//textView.setText(getVersionName(getApplicationContext()));
 
-		final Context mContext = this;
 
 		Thread welcomeThread = new Thread() {
 			int wait = 0;
@@ -33,7 +34,6 @@ public class SplashActivity extends Activity {
 				} catch (Exception e) {
 					System.out.println(e);
 				} finally {
-					//startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 					startNextActivity();
 					finish();
 				}
@@ -41,8 +41,6 @@ public class SplashActivity extends Activity {
 		};
 
 		welcomeThread.start();
-
-		//cargarPromociones();
 	}
 
 

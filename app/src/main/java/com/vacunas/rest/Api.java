@@ -3,6 +3,7 @@ package com.vacunas.rest;
 
 import com.vacunas.rest.model.Hijo;
 import com.vacunas.rest.model.Respuesta;
+import com.vacunas.rest.model.RespuestaNotificaciones;
 import com.vacunas.rest.model.Usuario;
 import com.vacunas.rest.model.Vacuna;
 
@@ -19,11 +20,14 @@ public interface Api {
     @POST("usuarios/verificar-usuario")
     Call<Respuesta<Usuario>>  getUsuario(@Query("correo") String correo);
 
-    @GET("hijos/obtener-por-padre")
+    @POST("hijos/obtener-por-padre")
     Call<List<Hijo>> getHijos(@Query("idPadre") String idPadre);
 
-    @GET("vacunas/obtener-por-hijo")
+    @POST("vacunas/obtener-por-hijo")
     Call<List<Vacuna>> getVacunasHijos(@Query("idHijo") String idHijo);
+
+    @POST("hijos/enviar-notificaciones")
+    Call<RespuestaNotificaciones<Hijo>> enviarNotificaciones(@Query("idPadre") String idPadre);
 
 /*
     @GET("ProductosCanjeables/")
