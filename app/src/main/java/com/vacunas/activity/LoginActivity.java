@@ -111,6 +111,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Respues
                 startActivity(i);
                 finish();
             } else {
+                signOut();
                 Toast.makeText(LoginActivity.this, "El usuario no existe", Toast.LENGTH_SHORT).show();
                 showProgress(false);
             }
